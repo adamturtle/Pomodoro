@@ -1,5 +1,5 @@
 config = {
-  duration: 25,
+  duration: 1,
   shortBreak: 5,
   longBreak: 15
 };
@@ -77,6 +77,7 @@ function startWorking(){
 }
 function startBreak(){
 	PlaySound('dingling');
+  showNotification('Pomodoro complete. Take a break!');
 	document.getElementById('minutes').innerHTML = config.shortBreak;
 	document.getElementById('seconds').innerHTML = "00";
 	document.getElementById('startstop').innerHTML = "End break";
@@ -127,6 +128,20 @@ function updateTime(){
 }
 
 
+function notificationPermission(callback) {
+  window.webkitNotifications.requestPermission(callback);
+}
+
+function showNotification(message) {
+  if (window.webkitNotifications.checkPermission() > 0) {
+    notificationPermission(showNotification('test'));
+  } else {
+    notification = window.webkitNotifications.createHTMLNotification('../img/pomodoro.png','Pomodoro Timer',message);
+    notification.show();
+  }
+}
+
 function loadjs(){
-	updateTime();
+	updateTime();  
+  showNotification('test');
 }
