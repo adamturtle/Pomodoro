@@ -99,6 +99,7 @@ function updateTime(){
 	if (timerRunning != true){
 		document.getElementById('minutes').innerHTML = config.duration;
 		document.getElementById('seconds').innerHTML = "00";
+    document.title = config.duration + ':' + "00";    
 	}else{
 
 	var currentTime = new Date();
