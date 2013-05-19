@@ -1,5 +1,11 @@
+config = {
+  duration: 25,
+  shortBreak: 5,
+  longBreak: 15
+};
+
 var startTime = new Date();
-var duration = 25;
+var duration = config.duration;
 var pomoCount = 0;
 var working = false;
 var timerRunning = false;
@@ -60,10 +66,10 @@ function startstop(){
 
 function startWorking(){
 	startTime = new Date();
-	duration = 25;
+	duration = config.duration;
 	working = true;
 	timerRunning = true;
-	document.getElementById('minutes').innerHTML = "25";
+	document.getElementById('minutes').innerHTML = config.duration;
 	document.getElementById('seconds').innerHTML = "00";
 	document.getElementById('progress_bar').setAttribute('class','ui-progress-bar warning ui-container transition');
 	document.getElementById('timer').setAttribute('class','timer');
@@ -71,14 +77,14 @@ function startWorking(){
 }
 function startBreak(){
 	PlaySound('dingling');
-	document.getElementById('minutes').innerHTML = "05";
+	document.getElementById('minutes').innerHTML = config.shortBreak;
 	document.getElementById('seconds').innerHTML = "00";
 	document.getElementById('startstop').innerHTML = "End break";
 	startTime = new Date();
-	duration = 5;
+	duration = config.shortBreak;
 	if (pomoCount%4 == 0){
-		duration = 15;
-		document.getElementById('minutes').innerHTML = "15";
+		duration = config.longBreak;
+		document.getElementById('minutes').innerHTML = config.longBreak;
 	}
 	
 	document.getElementById('progress_bar').setAttribute('class','ui-progress-bar ui-container transition');
@@ -90,7 +96,7 @@ function startBreak(){
 function updateTime(){
 	var t=setTimeout("updateTime()", 1000);
 	if (timerRunning != true){
-		document.getElementById('minutes').innerHTML = "25";
+		document.getElementById('minutes').innerHTML = config.duration;
 		document.getElementById('seconds').innerHTML = "00";
 	}else{
 
@@ -113,6 +119,7 @@ function updateTime(){
 		if (minutes < 10){ minutes = "0" + minutes;}
 		if (seconds < 10){ seconds = "0" + seconds;}
 
+    document.title = minutes + ':' + seconds;
 		document.getElementById('minutes').innerHTML = minutes;
 		document.getElementById('seconds').innerHTML = seconds;
 		document.getElementById('bar').style.width = width;
@@ -122,5 +129,4 @@ function updateTime(){
 
 function loadjs(){
 	updateTime();
-
 }
