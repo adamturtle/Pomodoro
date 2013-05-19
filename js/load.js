@@ -1,5 +1,5 @@
 config = {
-  duration: 1,
+  duration: 25,
   shortBreak: 5,
   longBreak: 15
 };
@@ -128,20 +128,33 @@ function updateTime(){
 }
 
 
-function notificationPermission(callback) {
-  window.webkitNotifications.requestPermission(callback);
+function notificationPermission() {
+  if (window.webkitNotifications.checkPermission() != 0) {
+    window.webkitNotifications.requestPermission();
+  }
 }
 
 function showNotification(message) {
   if (window.webkitNotifications.checkPermission() > 0) {
     notificationPermission(showNotification('test'));
   } else {
-    notification = window.webkitNotifications.createHTMLNotification('../img/pomodoro.png','Pomodoro Timer',message);
+    notification = window.webkitNotifications.createNotification('img/icon-pomodoro.png','Pomodoro Timer',message);
     notification.show();
+  }
+}
+
+function startstopspacebar(){
+  document.body.onkeydown = function(event){
+      event = event || window.event;
+      var keycode = event.charCode || event.keyCode;
+      if(keycode === 32){
+        startstop();
+      }
   }
 }
 
 function loadjs(){
 	updateTime();  
-  showNotification('test');
+  notificationPermission();
+  startstopspacebar();
 }

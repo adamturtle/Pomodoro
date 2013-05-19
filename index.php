@@ -46,7 +46,8 @@
 		<span>15</span>
 		<div>minutes</div>
 	</div>
-
+  
+  <p><a href="#" id="permissions" onclick="notificationPermission()">Show desktop notifications?</a></p>
 
 </div>
 
